@@ -1,0 +1,24 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "description": "Chat tipo telegram, mejorado",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chat",
+    "telegram",
+    "server"
+  ],
+  "author": "Jonathan Venegas <contacto@jonathanvenegas.cl>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
