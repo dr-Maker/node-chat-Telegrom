@@ -1,42 +1,26 @@
 // express http request
 const express = require('express');
+// creando la aplicacion con express add los metodos y la forma de trabajar el cuerpo de la aplicacion
+const app = express();
+const server = require("http").Server(app);
+
 
 //permite trabajar con el cuerpo de la peticion request
 const bodyParser = require('body-parser');
-
-const response = require('./network/response');
-
+const db = require('./db');
 // router express permite generar los Metodos GET PUT DELETE POST PATCH OPTIONS
-const router = express.Router();
+const router = require("./network/routes");
 
-// creando la aplicacion con express add los metodos y la forma de trabajar el cuerpo de la aplicacion
-var app = express();
+db('mongodb://localhost:27017/bd_telegrom');
+
+
 app.use(bodyParser.json());
-app.use(router);
+// app.use(router);
 
-router.get("/message", (req, res) =>{
-    // console.log(req.headers)
-    // res.header({"custom-header":"Nuestro header personalizado"})
-    // console.log(req.query);
-    // console.log(req.body);
-    response.success(req, res, "solicitado desde Get");
+router(app);
+
+app.use("/app", express.static('public'));
+
+server.listen(3000, ()=>{
+    console.log('La aplicación esta escuchando http://localhost:3000')
 });
-
-router.post("/message", (req,res) =>{
-    if(req.query.error == "ok"){
-        response.error(req, res, "Error simulado", 400)
-    }else{
-        response.success(req, res, "creado correctamente", 201)
-    }
-})
-
-router.delete("/message", (request, response) =>{
-    response.status(201).send();
-})
-
-// app.use('/', function (req, res){
-//     res.send('hola');
-// });
-
-app.listen(3000);
-console.log('La aplicación esta escuchando http://localhost:3000')
